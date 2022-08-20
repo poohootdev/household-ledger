@@ -3,16 +3,11 @@ import { TOKEN, DATABASE_ID } from '../config';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-
-type ListItem = {
-  id: string;
-  text: string;
-  value: number;
-};
+import ListItem from '../src/components/ListItem';
+import { BankAccount } from '../types/Types';
 
 const Home: NextPage = (data: any) => {
-  // console.log(data);
-
+  const bankAccounts = data.bankAccounts;
   return (
     <div className={styles.container}>
       <Head>
@@ -23,13 +18,12 @@ const Home: NextPage = (data: any) => {
       <main className={styles.main}>
         <h1 className={styles.title}>계좌 잔액</h1>
 
-        <p className={styles.description}></p>
+        <p className={styles.description}>총 {bankAccounts.length}개</p>
 
         <div className={styles.grid}>
-          <a className={styles.card}>
-            <h2>이름&rarr;</h2>
-            <p>9,999원</p>
-          </a>
+          {bankAccounts.map((account: BankAccount) => (
+            <ListItem key={account.id} data={account} />
+          ))}
         </div>
       </main>
 
@@ -71,13 +65,13 @@ export async function getStaticProps() {
         const title: any = await getPageTitle(product);
         const balance: any = await getPageBalance(product);
 
-        const listItem: ListItem = {
+        const account: BankAccount = {
           id: product.id,
-          text: title.results[0].title.plain_text,
-          value: balance.property_item.rollup.number,
+          title: title.results[0].title.plain_text,
+          balance: balance.property_item.rollup.number,
         };
 
-        return listItem;
+        return account;
       }),
     );
   };
