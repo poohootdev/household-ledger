@@ -8,7 +8,7 @@ const ListItem = ({ data }: { data: BankAccount }) => {
   return (
     <div className={styles.card}>
       <h2>
-        {title} &rarr; {balance}원
+        {title} : {balance} 원
       </h2>
     </div>
   );
