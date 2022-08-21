@@ -5,6 +5,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import ListItem from '../src/components/ListItem';
 import { BankAccount } from '../types/Types';
+import NumberWithComma from '../src/utils/Number';
 
 const Home: NextPage = (data: any) => {
   const bankAccounts = data.bankAccounts;
@@ -21,8 +22,9 @@ const Home: NextPage = (data: any) => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={sum > 0 ? styles.title_plus : styles.title_minus}>{sum} 원</h1>
-
+        <h1 className={sum > 0 ? styles.title_plus : styles.title_minus}>
+          {NumberWithComma(sum)} 원
+        </h1>
         <div className={styles.grid}>
           {bankAccounts.map((account: BankAccount) => (
             <ListItem key={account.id} data={account} />
