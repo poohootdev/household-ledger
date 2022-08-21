@@ -80,7 +80,7 @@
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
-  width: 370px;
+  width: 330px;
 }
 
 .card:hover,
@@ -92,7 +92,7 @@
 
 .card h2 {
   margin: 0 0 1rem 0;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .card p {
