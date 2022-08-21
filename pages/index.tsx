@@ -8,6 +8,7 @@ import { BankAccount } from '../types/Types';
 
 const Home: NextPage = (data: any) => {
   const bankAccounts = data.bankAccounts;
+
   const sum = bankAccounts
     .map((account: any) => account.balance)
     .reduce((prev: number, curr: number) => prev + curr, 0);
@@ -61,7 +62,6 @@ export async function getStaticProps() {
 
   const getBankAccounts = async () => {
     const db = await getDatabase();
-
     return Promise.all(
       db.results.map(async (product) => {
         const title: any = await getPageTitle(product);
@@ -79,6 +79,7 @@ export async function getStaticProps() {
   };
 
   const bankAccounts = await getBankAccounts();
+  bankAccounts.sort((prev: BankAccount, curr: BankAccount) => curr.balance - prev.balance);
 
   return {
     props: { bankAccounts },
