@@ -8,6 +8,10 @@ import { BankAccount } from '../types/Types';
 
 const Home: NextPage = (data: any) => {
   const bankAccounts = data.bankAccounts;
+  const sum = bankAccounts
+    .map((account: any) => account.balance)
+    .reduce((prev: number, curr: number) => prev + curr, 0);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,9 +20,7 @@ const Home: NextPage = (data: any) => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>계좌 잔액</h1>
-
-        <p className={styles.description}>총 {bankAccounts.length}개</p>
+        <h1 className={sum > 0 ? styles.title_plus : styles.title_minus}>{sum} 원</h1>
 
         <div className={styles.grid}>
           {bankAccounts.map((account: BankAccount) => (
