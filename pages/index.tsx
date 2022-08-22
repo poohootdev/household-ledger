@@ -25,6 +25,7 @@ const Home: NextPage = (data: any) => {
         <h1 className={sum > 0 ? styles.title_plus : styles.title_minus}>
           {NumberWithComma(sum)} 원
         </h1>
+        <div className={styles.description}>2022-08-22(월)</div>
         <div className={styles.grid}>
           {bankAccounts.map((account: BankAccount) => (
             <ListItem key={account.id} data={account} />
@@ -65,14 +66,20 @@ export async function getStaticProps() {
   const getBankAccounts = async () => {
     const db = await getDatabase();
     return Promise.all(
-      db.results.map(async (product) => {
-        const title: any = await getPageTitle(product);
-        const balance: any = await getPageBalance(product);
+      db.results.map(async (item) => {
+        const titleData: any = await getPageTitle(item);
+        const balanceData: any = await getPageBalance(item);
+
+        let title: string = '';
+
+        if (titleData.results[0]) {
+          title = titleData.results[0].title.plain_text;
+        }
 
         const account: BankAccount = {
-          id: product.id,
-          title: title.results[0].title.plain_text,
-          balance: balance.property_item.rollup.number,
+          id: item.id,
+          title: title,
+          balance: balanceData.property_item.rollup.number,
         };
 
         return account;
