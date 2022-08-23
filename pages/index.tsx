@@ -25,7 +25,7 @@ const Home: NextPage = (data: any) => {
         <h1 className={sum > 0 ? styles.title_plus : styles.title_minus}>
           {NumberWithComma(sum)} 원
         </h1>
-        <div className={styles.description}>2022-08-22(월)</div>
+        <div className={styles.description}>2022-08-23(화)</div>
         <div className={styles.grid}>
           {bankAccounts.map((account: BankAccount) => (
             <ListItem key={account.id} data={account} />
